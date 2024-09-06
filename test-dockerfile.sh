@@ -1,0 +1,1 @@
+docker build . -t flask-flutter-boilerplate && docker run -it --rm flask-flutter-boilerplate
