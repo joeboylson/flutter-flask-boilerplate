@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -25,14 +26,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String get mode =>
-      const String.fromEnvironment('MODE', defaultValue: '(no mode defined)');
+  String data = "(no data)";
+
+  String get serverUrl =>
+      const String.fromEnvironment('SERVER_URL', defaultValue: '/');
+
+  Future<http.Response> getData() {
+    return http.get(Uri.parse('$serverUrl/api/auth/is-authenticated'));
+  }
+
+  void action() async {
+    final http.Response response = await getData();
+
+    setState(() {
+      data = response.body;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      children: [Text(mode)],
+      children: [
+        Text(serverUrl),
+        Text(data),
+        TextButton(onPressed: action, child: const Text("get data"))
+      ],
     ));
   }
 }
