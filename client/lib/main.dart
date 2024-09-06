@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
   String data = "(no data)";
 
   String get serverUrl =>
-      const String.fromEnvironment('SERVER_URL', defaultValue: '/');
+      const String.fromEnvironment('SERVER_URL', defaultValue: '');
 
   Future<http.Response> getData() {
     return http.get(Uri.parse('$serverUrl/api/auth/is-authenticated'));
