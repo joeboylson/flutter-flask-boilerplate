@@ -2,7 +2,8 @@
 
 cd client
 
-# make a symbolic link of the .env file
-# ln -s ../.env ./assets/.env
+source ../.env
 
-flutter run -d chrome
+flutter build appbundle -t lib/main_prod.dart 
+flutter run -d chrome \
+  --dart-define=MODE=$MODE
